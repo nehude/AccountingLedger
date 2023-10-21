@@ -24,7 +24,7 @@ public class Main {
                     makePayment(scanner);
                     break;
                 case "L":
-                    //displayLedger(scanner);
+                    displayLedger(scanner);
                     break;
                 case "X":
                     System.out.println("Thank you. Goodbye :)");
@@ -35,12 +35,15 @@ public class Main {
             }
         }
     }
+
+
+
     public static void displayMenu() {
         System.out.println("Welcome to the Accounting Home Screen");
         System.out.println("What would you like to do today?");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment (Debit)");
-        System.out.println("L) Ledger");
+        System.out.println("L) View Ledger");
         System.out.println("X) Exit");
         System.out.println("Please enter D, P, L, or X: ");
     }
@@ -96,7 +99,7 @@ public class Main {
 
             Payment newPayment = new Payment(date, time, description, vendor, amount);
 
-            try (FileWriter fileWriter = new FileWriter("src/main/resources/payments.csv", true)) {
+            try (FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true)) {
                 fileWriter.write(String.format("%s|%s|%s|%s|%.2f\n",
                         newPayment.getDate(), newPayment.getTime(), newPayment.getDescription(),
                         newPayment.getVendor(), newPayment.getAmount()));
@@ -110,6 +113,40 @@ public class Main {
             String response = scanner.nextLine().toUpperCase();
             if (!response.equals("Y")) {
                 makePayment = false;
+            }
+        }
+    }
+    public static void displayLedger(Scanner scanner) {
+        boolean isRunning = true;
+
+        while (isRunning) {
+            System.out.println("Ledger Options:");
+            System.out.println("A) All Transactions");
+            System.out.println("D) View Deposits");
+            System.out.println("P) View Payments");
+            System.out.println("R) View Reports");
+            System.out.println("H) Return to Home Screen");
+            System.out.print("Please enter A, D, P, R, or H: ");
+            String choice = scanner.nextLine().toUpperCase();
+
+            switch (choice) {
+                case "A":
+
+                    break;
+                case "D":
+
+                    break;
+                case "P":
+
+                    break;
+                case "R":
+
+                    break;
+                case "H":
+                    isRunning = false;
+                    break;
+                default:
+                    System.out.println("Not a valid choice, try again.");
             }
         }
     }
