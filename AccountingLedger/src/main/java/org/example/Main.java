@@ -35,9 +35,6 @@ public class Main {
             }
         }
     }
-
-
-
     public static void displayMenu() {
         System.out.println("Welcome to the Accounting Home Screen");
         System.out.println("What would you like to do today?");
@@ -140,13 +137,51 @@ public class Main {
 
                     break;
                 case "R":
-
+                    displayReports(scanner);
                     break;
                 case "H":
                     isRunning = false;
                     break;
                 default:
                     System.out.println("Not a valid choice, try again.");
+            }
+        }
+    }
+    public static void displayReports(Scanner scanner) {
+        boolean isRunning = true;
+
+        while (isRunning) {
+            System.out.println("Which report would you like to view?");
+            System.out.println("1) Month To Date Report");
+            System.out.println("2) Previous Month Report");
+            System.out.println("3) Year To Date Report");
+            System.out.println("4) Previous Year Report");
+            System.out.println("5) Search by Vendor");
+            System.out.println("0) Back");
+            System.out.print("Please enter 1, 2, 3, 4, 5, or 0: ");
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    Reports.monthToDate();
+                    break;
+                case 2:
+                    Reports.previousMonth();
+                    break;
+                case 3:
+                    Reports.yearToDate();
+                    break;
+                case 4:
+                    Reports.previousYear();
+                    break;
+                case 5:
+                    Reports.searchByVendor(scanner);
+                    break;
+                case 0:
+                    isRunning = false;
+                    break;
+                default:
+                    System.out.println("Not a valid option, please try again.");
             }
         }
     }
