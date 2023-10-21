@@ -2,14 +2,14 @@ package org.example;
 
 import java.util.Scanner;
 
-public class Deposit {
+public class Payment {
     private String date;
     private String time;
     private String description;
     private String vendor;
     private double amount;
 
-    public Deposit(String date, String time, String description, String vendor, double amount) {
+    public Payment(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
         this.description = description;
