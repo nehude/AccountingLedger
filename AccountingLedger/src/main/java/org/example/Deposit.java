@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class Deposit {
     private String date;
     private String time;
@@ -54,5 +56,46 @@ public class Deposit {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-}
 
+    public static double getCorrectAmount(Scanner scanner) {
+        while (true) {
+            System.out.print("Enter amount: ");
+            String amountInput = scanner.nextLine();
+            try {
+                double amount = Double.parseDouble(amountInput);
+                if (amount < 0) {
+                    System.out.println("Invalid amount. Please enter a positive number.");
+                } else {
+                    return amount;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Sorry please enter a number.");
+            }
+        }
+    }
+    public static String getCorrectDate(Scanner scanner) {
+        while (true) {
+            System.out.print("Enter date (YYYY-MM-DD): ");
+            String dateInput = scanner.nextLine();
+
+            if (dateInput.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                return dateInput;
+            } else {
+                System.out.println("Sorry please enter date in YYYY-MM-DD format.");
+            }
+        }
+    }
+
+    public static String getCorrectTime(Scanner scanner) {
+        while (true) {
+            System.out.print("Enter time (HH:MM:SS): ");
+            String timeInput = scanner.nextLine();
+
+            if (timeInput.matches("\\d{2}:\\d{2}:\\d{2}")) {
+                return timeInput;
+            } else {
+                System.out.println("Sorry please enter time in HH:MM:SS format.");
+            }
+        }
+    }
+}
