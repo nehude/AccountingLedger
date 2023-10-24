@@ -1,5 +1,7 @@
 package org.example;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Deposit {
@@ -55,6 +57,41 @@ public class Deposit {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public static void addDeposit(Scanner scanner) {
+        boolean deposit = true;
+
+        while (deposit) {
+            String date = Deposit.getCorrectDate(scanner);
+            String time = Deposit.getCorrectTime(scanner);
+
+            System.out.print("Enter description: ");
+            String description = scanner.nextLine();
+            System.out.print("Enter vendor: ");
+            String vendor = scanner.nextLine();
+
+            double amount = Deposit.getCorrectAmount(scanner);
+            amount = Math.abs(amount);
+
+            Deposit newDeposit = new Deposit(date, time, description, vendor, amount);
+
+            try (FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true)) {
+                fileWriter.write(String.format("%s|%s|%s|%s|%.2f\n",
+                        newDeposit.getDate(), newDeposit.getTime(), newDeposit.getDescription(),
+                        newDeposit.getVendor(), newDeposit.getAmount()));
+                System.out.println("Deposit added successfully.");
+            } catch (IOException ex) {
+                System.out.println("Could not deposit.");
+                ex.printStackTrace();
+            }
+
+            System.out.print("Do you want to make another deposit? Enter Y or N: ");
+            String response = scanner.nextLine().toUpperCase();
+            if (!response.equals("Y")) {
+                deposit = false;
+            }
+        }
     }
 
     public static double getCorrectAmount(Scanner scanner) {

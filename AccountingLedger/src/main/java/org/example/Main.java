@@ -4,10 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static org.example.Payment.*;
-
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         boolean isRunning = true;
@@ -18,13 +17,13 @@ public class Main {
 
             switch (choice) {
                 case "D":
-                    addDeposit(scanner);
+                    Deposit.addDeposit(scanner);
                     break;
                 case "P":
-                    makePayment(scanner);
+                    Payment.makePayment(scanner);
                     break;
                 case "L":
-                    displayLedger(scanner);
+                    Ledger.displayLedger(scanner);
                     break;
                 case "X":
                     System.out.println("Thank you. Goodbye :)");
@@ -44,146 +43,6 @@ public class Main {
         System.out.println("X) Exit");
         System.out.println("Please enter D, P, L, or X: ");
     }
-
-    public static void addDeposit(Scanner scanner) {
-        boolean deposit = true;
-
-        while (deposit) {
-            String date = Deposit.getCorrectDate(scanner);
-            String time = Deposit.getCorrectTime(scanner);
-
-            System.out.print("Enter description: ");
-            String description = scanner.nextLine();
-            System.out.print("Enter vendor: ");
-            String vendor = scanner.nextLine();
-
-            double amount = Deposit.getCorrectAmount(scanner);
-
-            Deposit newDeposit = new Deposit(date, time, description, vendor, amount);
-
-            try (FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true)) {
-                fileWriter.write(String.format("%s|%s|%s|%s|%.2f\n",
-                        newDeposit.getDate(), newDeposit.getTime(), newDeposit.getDescription(),
-                        newDeposit.getVendor(), newDeposit.getAmount()));
-                System.out.println("Deposit added successfully.");
-            } catch (IOException ex) {
-                System.out.println("Could not deposit.");
-                ex.printStackTrace();
-            }
-
-            System.out.print("Do you want to make another deposit? Enter Y or N: ");
-            String response = scanner.nextLine().toUpperCase();
-            if (!response.equals("Y")) {
-                deposit = false;
-            }
-        }
-    }
-
-    public static void makePayment(Scanner scanner) {
-        boolean makePayment = true;
-
-        while (makePayment) {
-            String date = getCorrectDate(scanner);
-            String time = getCorrectTime(scanner);
-
-            System.out.print("Enter description: ");
-            String description = scanner.nextLine();
-
-            System.out.print("Enter vendor: ");
-            String vendor = scanner.nextLine();
-
-            double amount = getCorrectAmount(scanner);
-
-            Payment newPayment = new Payment(date, time, description, vendor, amount);
-
-            try (FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true)) {
-                fileWriter.write(String.format("%s|%s|%s|%s|%.2f\n",
-                        newPayment.getDate(), newPayment.getTime(), newPayment.getDescription(),
-                        newPayment.getVendor(), newPayment.getAmount()));
-                System.out.println("Payment made successfully.");
-            } catch (IOException ex) {
-                System.out.println("Could not make payment.");
-                ex.printStackTrace();
-            }
-
-            System.out.print("Do you want to make another payment? (Y/N): ");
-            String response = scanner.nextLine().toUpperCase();
-            if (!response.equals("Y")) {
-                makePayment = false;
-            }
-        }
-    }
-    public static void displayLedger(Scanner scanner) {
-        boolean isRunning = true;
-
-        while (isRunning) {
-            System.out.println("Ledger Options:");
-            System.out.println("A) All Transactions");
-            System.out.println("D) View Deposits");
-            System.out.println("P) View Payments");
-            System.out.println("R) View Reports");
-            System.out.println("H) Return to Home Screen");
-            System.out.print("Please enter A, D, P, R, or H: ");
-            String choice = scanner.nextLine().toUpperCase();
-
-            switch (choice) {
-                case "A":
-
-                    break;
-                case "D":
-
-                    break;
-                case "P":
-
-                    break;
-                case "R":
-                    displayReports(scanner);
-                    break;
-                case "H":
-                    isRunning = false;
-                    break;
-                default:
-                    System.out.println("Not a valid choice, try again.");
-            }
-        }
-    }
-    public static void displayReports(Scanner scanner) {
-        boolean isRunning = true;
-
-        while (isRunning) {
-            System.out.println("Which report would you like to view?");
-            System.out.println("1) Month To Date Report");
-            System.out.println("2) Previous Month Report");
-            System.out.println("3) Year To Date Report");
-            System.out.println("4) Previous Year Report");
-            System.out.println("5) Search by Vendor");
-            System.out.println("0) Back");
-            System.out.print("Please enter 1, 2, 3, 4, 5, or 0: ");
-            int choice = Integer.parseInt(scanner.nextLine());
-
-            switch (choice) {
-                case 1:
-                    Reports.monthToDate();
-                    break;
-                case 2:
-                    Reports.previousMonth();
-                    break;
-                case 3:
-                    Reports.yearToDate();
-                    break;
-                case 4:
-                    Reports.previousYear();
-                    break;
-                case 5:
-                    Reports.searchByVendor(scanner);
-                    break;
-                case 0:
-                    isRunning = false;
-                    break;
-                default:
-                    System.out.println("Not a valid option, please try again.");
-            }
-        }
-    }
 }
+
 

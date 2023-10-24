@@ -1,5 +1,7 @@
 package org.example;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Payment {
@@ -56,6 +58,43 @@ public class Payment {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public static void makePayment(Scanner scanner) {
+        boolean makePayment = true;
+
+        while (makePayment) {
+            String date = Payment.getCorrectDate(scanner);
+            String time = Payment.getCorrectTime(scanner);
+
+            System.out.print("Enter description: ");
+            String description = scanner.nextLine();
+
+            System.out.print("Enter vendor: ");
+            String vendor = scanner.nextLine();
+
+            double amount = Payment.getCorrectAmount(scanner);
+            amount = -Math.abs(amount);
+
+            Payment newPayment = new Payment(date, time, description, vendor, amount);
+
+            try (FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true)) {
+                fileWriter.write(String.format("%s|%s|%s|%s|%.2f\n",
+                        newPayment.getDate(), newPayment.getTime(), newPayment.getDescription(),
+                        newPayment.getVendor(), newPayment.getAmount()));
+                System.out.println("Payment made successfully.");
+            } catch (IOException ex) {
+                System.out.println("Could not make payment.");
+                ex.printStackTrace();
+            }
+
+            System.out.print("Do you want to make another payment? (Y/N): ");
+            String response = scanner.nextLine().toUpperCase();
+            if (!response.equals("Y")) {
+                makePayment = false;
+            }
+        }
+    }
+
 
     public static double getCorrectAmount(Scanner scanner) {
         while (true) {
