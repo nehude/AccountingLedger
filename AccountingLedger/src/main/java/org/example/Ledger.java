@@ -79,13 +79,13 @@ public class Ledger {
 
                     transactions.add(transaction);
                 } else {
-                    System.out.println("Invalid line in file: " + line);
+                    System.out.println("Error in line: " + line);
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found.");
+        } catch (IOException ex) {
+            System.out.println("Error reading file.");
         }
     }
 

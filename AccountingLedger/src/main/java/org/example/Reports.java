@@ -15,8 +15,9 @@ public class Reports {
             System.out.println("3) Year To Date Report");
             System.out.println("4) Previous Year Report");
             System.out.println("5) Search by Vendor");
+            System.out.println("6) Custom Search");
             System.out.println("0) Back");
-            System.out.print("Please enter 1, 2, 3, 4, 5, or 0: ");
+            System.out.print("Please enter 1, 2, 3, 4, 5, 6, or 0: ");
 
             int choice;
             try {
@@ -42,6 +43,8 @@ public class Reports {
                 case 5:
                    searchByVendor(transactions, scanner);
                     break;
+                case 6:
+                    // customSearch(transactions, scanner);
                 case 0:
                     isRunning = false;
                     break;

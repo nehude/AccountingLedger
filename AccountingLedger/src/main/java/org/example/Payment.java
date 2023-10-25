@@ -107,7 +107,7 @@ public class Payment {
                 } else {
                     return amount;
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException ex) {
                 System.out.println("Sorry please enter a number.");
             }
         }

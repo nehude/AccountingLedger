@@ -14,17 +14,6 @@ public class Transaction {
         this.vendor = vendor;
         this.amount = amount;
     }
-    public int getMonth() {
-        // Extract month from the date (assuming date is in format "YYYY-MM-DD")
-        String[] dateParts = date.split("-");
-        return Integer.parseInt(dateParts[1]);
-    }
-
-    public int getYear() {
-        // Extract year from the date (assuming date is in format "YYYY-MM-DD")
-        String[] dateParts = date.split("-");
-        return Integer.parseInt(dateParts[0]);
-    }
 
     public String getDate() {
         return date;
