@@ -87,7 +87,7 @@ public class Payment {
                 ex.printStackTrace();
             }
 
-            System.out.print("Do you want to make another payment? (Y/N): ");
+            System.out.print("Do you want to make another payment? Enter Y or N: ");
             String response = scanner.nextLine().toUpperCase();
             if (!response.equals("Y")) {
                 makePayment = false;
